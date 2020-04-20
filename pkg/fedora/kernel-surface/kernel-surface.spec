@@ -2,16 +2,19 @@
 # Definitions to configure the kernel we want to build
 #
 
-%global kernel_tag_fc31 kernel-5.5.8-200.fc31
-%global kernel_tag_fc30 kernel-5.5.8-100.fc30
+%global kernel_tag_fc32 kernel-5.6.5-300.fc32
+%global kernel_tag_fc31 kernel-5.5.18-200.fc31
+%global kernel_tag_fc30 kernel-5.5.18-100.fc30
 
+%global kernel_release_fc32 1
 %global kernel_release_fc31 1
 %global kernel_release_fc30 1
 
+%global fedora_title_fc32 32 (Thirty Two)
 %global fedora_title_fc31 31 (Thirty One)
 %global fedora_title_fc30 30 (Thirty)
 
-%global ls_patches_commit 3edcfeee65a85d67d7f308b40f51285ccab46788
+%global ls_patches_commit 1b80351c002a139876f5d1923eb102309bcc6bf8
 
 %global sb_crt surface.crt
 %global sb_key surface.key
@@ -50,6 +53,8 @@ Release:    %{kernel_release}%{?dist}
 License:    GPLv2
 URL:        https://github.com/linux-surface/linux-surface
 
+Provides: installonlypkg(kernel-surface)
+
 Requires(pre): coreutils, systemd >= 203-2, /usr/bin/kernel-install
 Requires(pre): dracut >= 027
 Requires(pre): linux-firmware >= 20150904-56.git6ebf5d57
@@ -73,8 +78,8 @@ Source0:    %{fedora_source}/archive/%{kernel_tag}.tar.gz
 Source1:    %{surface_source}/configs/surface-%{kernel_majorver}.config
 Source2:    fedora.config
 
-Source20:    %{sb_crt}
-Source21:    %{sb_key}
+Source20:   %{sb_crt}
+Source21:   %{sb_key}
 
 Source100:  mod-sign.sh
 Source101:  parallel_xz.sh
@@ -92,6 +97,7 @@ Patch100:   0001-Add-secureboot-pre-signing-to-the-kernel.patch
 ExclusiveArch: x86_64
 
 %global debug_package %{nil}
+%global _build_id_links alldebug
 
 %description
 The Linux Kernel, the operating system core itself, with support for
@@ -100,6 +106,7 @@ Microsoft Surface.
 %package devel
 Summary: Development package for building kernel modules for kernel-surface
 AutoReqProv: no
+Provides: installonlypkg(kernel-surface)
 
 %description devel
 This package provides kernel headers and makefiles sufficient to build modules
@@ -146,6 +153,10 @@ pathfix.py -i "%{__python3} %{py3_shbang_opts}" -p -n \
 	scripts/gen_compile_commands.py
 
 %build
+
+# This ensures build-ids are unique to allow parallel debuginfo
+perl -p -i -e "s/^CONFIG_BUILD_SALT.*/CONFIG_BUILD_SALT=\"%{kernel_name}\"/" .config
+
 make %{?_smp_mflags} all LOCALVERSION=-%{kernel_localversion} ARCH=%{_target_cpu}
 
 %define __modsign_install_post \

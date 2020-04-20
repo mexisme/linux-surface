@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgbase=linux-surface
-pkgver=5.5.8.arch1
+pkgver=5.6.5.arch1
 pkgrel=1
 pkgdesc='Linux'
 _fullver=${pkgver%.*}-${pkgver##*.}
@@ -34,18 +34,16 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
   '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
 )
-sha256sums=('SKIP'
-            'a841aa011edf6bae0ffbe8ead8177e5056de5a6d7333bb96e16917903de4d868'
-            'c5c4058311e29eed36b26a36b2ccd1add4ac7bbd29068fec97554a780ed44bc3'
-
-            '3907b6b09f8ae073bde1b483da2ea0570bfff4a95f3e99354cc24d374a6efa7b'  # 0001-surface3-power.patch
-            'fb3e9510bd8186a681725c8fe04d98630358adafe925f86d99ac5059e799d62d'  # 0002-surface3-spi.patch
-            '932049dbc25f66556642e1d7f5d7772858b9d6d38043c14c4fa09bf62822580d'  # 0003-surface3-oemb.patch
-            'b8119b696f729a54560c58328eb9421aa5931540203cdbf0a7cd8bf8315ec1b8'  # 0004-surface-sam.patch
-            '8821a8a57b853fb6820180dae039acebbb9dfb2ab0dab3dcc12a24393ddcd51a'  # 0005-surface-lte.patch
-            'c9c25ea0fa97275b1dff3f706e35c80358ea8fb7f0ef17894ebf2e111ce128ca'  # 0006-wifi.patch
-            'db500d7d40dfbaa48ce9852f6f2258f722434f8ed48d2444c6c2a9205769d4fe'  # 0007-ipts.patch
-          )
+sha256sums=('8c6f614708f7f40642dfcddedbf6af198e4e72e0efb5a349f6065029c1d46700'
+            '6ac452e2124f92747a57c5a50e11ca2f1e8112669845b4431311545c7fd2a36c'
+            '4662d1c8c5557e7531cfd4175809e832aa2d96771454f9631f5c09c2c40eb881'
+            '345ce793441684f5d167e32bb6455ba7ce9b12192f60578db7db360bd03c7270'
+            'dc169b16cbbe2d70a1c293f3bd77fd2977af39fa39d488163c4d29b309f95aab'
+            '0d0100fa7d5d8dccb4dcf09109ba563f03979e49bf0353f072cfa266bdcf870f'
+            'c6e289b43a853e6dc00416cec02a490a4c3192b3f802eed04d5bced5c75b8795'
+            'dc9c31257842ca1c60d13ef33fdf3a0cfaa5678da6c65c524571e4b01c82d24f'
+            'd7515bb032c80a2ba99c37f843e81792c55a57f60b3ec72bb752c06c7902ebb0'
+            'db80e0321f9b915bc4c545914030ca97ecf301e36e58b47efeedeb3186918017')
 
 
 export KBUILD_BUILD_HOST=archlinux
@@ -93,6 +91,8 @@ _package() {
   depends=(coreutils kmod initramfs)
   optdepends=('crda: to set the correct wireless channels of your country'
               'linux-firmware: firmware images needed for some devices')
+  provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
+  replaces=(virtualbox-guest-modules-arch wireguard-arch)
 
   cd $_srcname
   local kernver="$(<version)"
@@ -118,9 +118,6 @@ _package() {
 
   # remove build and source links
   rm "$modulesdir"/{source,build}
-
-  echo "Fixing permissions..."
-  chmod -Rc u=rwX,go=rX "$pkgdir"
 }
 
 _package-headers() {
@@ -196,9 +193,6 @@ _package-headers() {
   echo "Adding symlink..."
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
-
-  echo "Fixing permissions..."
-  chmod -Rc u=rwX,go=rX "$pkgdir"
 }
 
 pkgname=("$pkgbase" "$pkgbase-headers")

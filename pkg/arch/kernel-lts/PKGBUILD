@@ -1,7 +1,7 @@
 # Maintainer: Maximilian Luz <luzmaximilian@gmail.com>
 
 pkgbase=linux-surface-lts
-pkgver=4.19.106
+pkgver=4.19.114
 pkgrel=1
 pkgdesc='LTS Linux'
 url="https://www.kernel.org/"
@@ -36,23 +36,21 @@ validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v4.x/sha256sums.asc
-sha256sums=('63c8bd76a9b282e18112f8ff9e3fd41e3d1df9f9b7248ea1a370b05a827e9cda'
+sha256sums=('1e40a0dc6afc95a259f97b80d5f5ef8f89e2ee49e993ba6844e2bc55de361f0e'
             'SKIP'
-            '4e68572e7cc4c5368f0236e0792660ae8498373988625dca46e509399a7eaea6' # config
-            'a13581d3c6dc595206e4fe7fcf6b542e7a1bdbe96101f0f010fc5be49f99baf2' # 0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
-            '75080f2961b8745fc7c4f4563a8c93e7f2f47446ce736f1ad89c3de99f9ef2c1' # surface.config
-
-            '393dff7390fd83fd49cbae944aa8a1d449d6602c07bd07959ac5fa22f849962b' # 0001-surface3-power.patch
-            '254329686dce44a4e7e88835995963c97b66825d208129b1044c66fd00eb1176' # 0002-surface3-spi.patch
-            '17bdcf288b7d038a4860e64fb76d9cd69f46384939d29a974e6c0ee440e52edf' # 0003-surface3-oemb.patch
-            '541a7c778b115e8f417c1e2932adcef316e764a3480273dbcd4ae4264261d75c' # 0004-surface-buttons.patch
-            '4d9e6ef08179c2da5712669a8953fd7abf3f1b2f77b583ce4c454604e04169af' # 0005-surface-sam.patch
-            '76f97f33f0bf09884d0249f4fa2ab88fb4d2c3a5aa229b62350b29a5c9b33c16' # 0006-suspend.patch
-            'd33f80ead00634329cf684bd52f0a302904fcf9896f5a1d17eeac97f102bdb6d' # 0007-ipts.patch
-            '35b7a48b84b567366372dc1f653f9bd67945b870477ec3ef18e2bf3b9a61027e' # 0008-surface-lte.patch
-            '2fed1846459333486c3e548ee8a3a6d169fae88fdd0c8246cea8b23c42192aff' # 0009-ioremap_uc.patch
-            '2d4dabf0b5b0e788348de57424725d52d2103b8abb84951b9af9fdf95f7af04b' # 0010-wifi.patch
-          )
+            '4e68572e7cc4c5368f0236e0792660ae8498373988625dca46e509399a7eaea6'
+            'a13581d3c6dc595206e4fe7fcf6b542e7a1bdbe96101f0f010fc5be49f99baf2'
+            'c602c46325ef87e19f437a7326ac4e36e539f005a27ad1416e75bbc227cade58'
+            '80bd03bf198f9183ed305935c356363e784e65e5a1f423bfe09163ca2b7e4143'
+            'f49c476fea07ec467e0206b89dd590ad9aa086e57ee17787d509c5d25bd1e297'
+            '9c863b9f5165c1ec15897ecd92e0dcfd6d13b1cd389c8514fa7aef915721b04f'
+            '4fac68040a61c1ab0abc946e92af3bdad3aa14006dbf7b09143675ad6d6382d5'
+            '9f9c6de568e4e5799f5143d2fc244be2bd8f4ae55d162c6615c2231529b1c66d'
+            '3a0f852da5a56c69c4f2f9700821900bdc83b60b4f2fc7563a8bab507b0fd1a2'
+            '4774a6f8a3b3f0e29008cb07603c1a5d1de9d69bdaf8962d70282c3d33bf90ac'
+            '7faba24b749ecdb2205593bb510d58bf7ec113003fcfcc6cdf7b2b0a120ba034'
+            '1586fb09287b1a1d5ee1992bf24cb43d8e8eeff3e4f56fe9ebaa4c564374b465'
+            'b18fb2d1cadd8f72fbd0c8a5a30423de4f07fc1bd8b1a81dbaf2102898c89420')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
